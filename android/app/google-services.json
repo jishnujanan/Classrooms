@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "665110939553",
+    "project_id": "classrooms-tkmce",
+    "storage_bucket": "classrooms-tkmce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665110939553:android:6b4c3f095e78e95668ade0",
+        "android_client_info": {
+          "package_name": "com.example.classrooms_tkmce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665110939553-iv6nrrdaumcodqc2ici1dkeoqcuo38cf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGvMMswnMkSfDDvQ367hR0vSdEGPCZ_k4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665110939553-iv6nrrdaumcodqc2ici1dkeoqcuo38cf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
