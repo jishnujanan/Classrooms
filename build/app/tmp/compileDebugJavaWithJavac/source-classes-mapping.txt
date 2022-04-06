@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/example/classrooms_tkmce/BuildConfig.java
- com.example.classrooms_tkmce.BuildConfig
