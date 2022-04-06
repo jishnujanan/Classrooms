@@ -49,6 +49,7 @@ class _AskQueryState extends State<AskQuery> {
                         create: (context) => subjects,
                         child: QuestionsList(
                           classcode: widget.code,
+                          subjects: subjects,
                         ),
                       ),
                     ));

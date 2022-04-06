@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class QuestionsList extends StatefulWidget {
   String? classcode;
-  QuestionsList({this.classcode});
+  List? subjects;
+  bool emptyquestions = true;
+  QuestionsList({this.classcode, this.subjects});
   @override
   _QuestionsListState createState() => _QuestionsListState();
 }
@@ -19,10 +21,9 @@ class _QuestionsListState extends State<QuestionsList> {
   String? selectedSubject;
   bool loading = false;
   Widget build(BuildContext context) {
+    print(widget.subjects);
     User? user = Provider.of<User?>(context);
-    List<dynamic>? subjects = Provider.of<List<dynamic>?>(context);
     final DatabaseServices databaseServices = DatabaseServices();
-    print(subjects);
     return Scaffold(
       appBar: AppBar(
         title: Text('View Questions', style: styleAppbarTitle),
@@ -59,7 +60,7 @@ class _QuestionsListState extends State<QuestionsList> {
                                     borderSide: BorderSide.none)),
                             isExpanded: true,
                             value: selectedSubject,
-                            items: subjects!
+                            items: widget.subjects!
                                 .map((subject) => DropdownMenuItem<String>(
                                       child: Text(
                                         subject,
@@ -104,40 +105,16 @@ class _QuestionsListState extends State<QuestionsList> {
                                   loading = false;
                                 });
                                 if (result == null) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text('Failed getting questions'),
-                                        actions: [
-                                          IconButton(
-                                              icon: Icon(Icons.close_sharp),
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              })
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  setState(() {
+                                    widget.emptyquestions = true;
+                                  });
                                 } else {
                                   if (result!.isEmpty) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: Text('No questions'),
-                                          actions: [
-                                            IconButton(
-                                                icon: Icon(Icons.close_sharp),
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                })
-                                          ],
-                                        );
-                                      },
-                                    );
+                                    setState(() {
+                                      widget.emptyquestions = true;
+                                    });
                                   } else {
-                                    setState(() {});
+                                    setState(() {widget.emptyquestions = false;});
                                   }
                                 }
                               } catch (e) {}
@@ -149,8 +126,14 @@ class _QuestionsListState extends State<QuestionsList> {
                           ),
                         ),
                       ),
-                      result != null
-                          ? ListView.builder(
+                      widget.emptyquestions
+                          ? Center(
+                              child: Padding(
+                                padding:  EdgeInsets.fromLTRB(0,MediaQuery.of(context).size.height * 0.2,0,MediaQuery.of(context).size.height * 0.2),
+                                child: Text('No Questions Available'),
+                              ),
+                            )
+                          : ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: result!.length,
@@ -227,8 +210,7 @@ class _QuestionsListState extends State<QuestionsList> {
                                   ),
                                 );
                               },
-                            )
-                          : Center(),
+                            ),
                     ],
                   ),
                 ),
